@@ -1,12 +1,12 @@
 using UnityEngine;
 
+[RequireComponent(typeof(Animator), typeof(Rigidbody2D))]
 public class Movement : MonoBehaviour
 {
     [SerializeField] private float _speed = 3;
 
     private Animator _animator;
     private Rigidbody2D _rigidbody2D;
-
     private bool _isOnGround;
 
     private void Start()

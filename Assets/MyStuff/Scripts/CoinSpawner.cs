@@ -3,7 +3,6 @@ using UnityEngine;
 public class CoinSpawner : MonoBehaviour
 {
     [SerializeField] private Transform _coinPool;
-
     [SerializeField] private Coin _template;
 
     private Transform[] _coinsLocations;

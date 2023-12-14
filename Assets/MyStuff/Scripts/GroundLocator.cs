@@ -12,14 +12,13 @@ public class GroundLocator : MonoBehaviour
 
     public bool IsStandOnGround()
     {
-        Debug.Log("IsStandOnGround");
-
         ContactFilter2D contactFilter = new ContactFilter2D();
-        contactFilter.layerMask = LayerMask.NameToLayer("Ground");
-
+        contactFilter.SetLayerMask(LayerMask.NameToLayer("Ground"));
+        contactFilter.useLayerMask = true;
+        
         RaycastHit2D[] raycastHits = new RaycastHit2D[10];
 
-        float distance = 0.1f;
+        float distance = 0.01f;
 
         Vector2 center = _collider.bounds.center;
         int circleCast = Physics2D.CircleCast(
@@ -30,11 +29,7 @@ public class GroundLocator : MonoBehaviour
             raycastHits,
             distance);
         
-        Debug.DrawLine(center, new Vector2(center.x, center.y - _collider.radius - distance), Color.red);
-
-        // TODO: а это норм что он столкновение с самим собой учитывает?
-
         Debug.Log("IsStandOnGround circleCast = " + circleCast);
-        return circleCast > 1;
+        return circleCast == 1;
     }
 }

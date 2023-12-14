@@ -25,15 +25,13 @@ public class Movement : MonoBehaviour
             transform.Translate(_speed * Time.deltaTime, 0, 0);
         }
 
-        if (Input.GetKey(KeyCode.A))
+        if (Input.GetKey (KeyCode.A))
         {
             _animatorHandler.SetTriggerRun();
             transform.Translate(_speed * Time.deltaTime * -1, 0, 0);
         }
 
-        // TODO: прыжки порой получаются с разной силой
-        //       наверное потому что импульс успевает несколько раз пройти пока IsStandOnGround = true
-        if (Input.GetKey(KeyCode.W) && _groundLocator.IsStandOnGround())
+        if (Input.GetKeyDown(KeyCode.W) && _groundLocator.IsStandOnGround())
         {
             _rigidbody2D.AddForce(new Vector2(0, 5), ForceMode2D.Impulse);
         }

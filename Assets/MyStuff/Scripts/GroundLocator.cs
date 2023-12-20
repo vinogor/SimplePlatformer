@@ -12,9 +12,16 @@ public class GroundLocator : MonoBehaviour
 
     public bool IsStandOnGround()
     {
-        float distance = 0.01f;
-        var circleCastAll = Physics2D.CircleCastAll(_collider.bounds.center, _collider.radius, Vector2.down, distance,
+        float epsilonDistance = 0.05f;
+        var circleCastAll = Physics2D.CircleCastAll(
+            _collider.bounds.center,
+            _collider.radius,
+            Vector2.down,
+            epsilonDistance,
             LayerMask.GetMask("Ground"));
+
+        // Debug.Log("circleCastAll.Length = " + circleCastAll.Length);
+
         return circleCastAll.Length == 1;
     }
 }

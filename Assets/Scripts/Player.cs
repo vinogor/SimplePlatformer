@@ -2,11 +2,12 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    private int _health;
+    private int _currentHealth;
+    private int _maxHealth = 100;
 
     private void Start()
     {
-        _health = 100;
+        _currentHealth = _maxHealth;
     }
 
     // при столкновении коллайдера с врагом - получить урон 
@@ -20,19 +21,34 @@ public class Player : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         Debug.Log("Player OnCollisionEnter2D name = " + collision.collider.name);
-        // if (collision.collider.CompareTag("Coin"))
-        // {
-        //     Destroy(collision.gameObject);
-        // }
+
+        if (collision.gameObject.TryGetComponent(out Enemy enemy))
+        {
+            Debug.Log("столкновение с врагом!");
+            
+        }
     }
 
+    // для сбора монеток
     private void OnTriggerEnter2D(Collider2D other)
     {
         // Debug.Log("Player OnTriggerEnter name = " + other.name);
         if (other.TryGetComponent(out Coin coin))
         {
             // Debug.Log("Player OnTriggerEnter  Coin coin ");
-            Destroy(other.gameObject);
+            Destroy(coin.gameObject);
+        }
+    }
+    
+    public void RecountHealth(int deltaHealth)
+    {
+        // tip: deltaHealth может быть отрицательная 
+        _currentHealth += deltaHealth;
+        print("_currentHealth = " + _currentHealth);
+
+        if (_currentHealth <= 0)
+        {
+            print("произошла смерть");
         }
     }
 }

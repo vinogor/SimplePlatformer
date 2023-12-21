@@ -10,11 +10,7 @@ public class Movement : MonoBehaviour
     private AnimatorHandler _animatorHandler;
     private GroundLocator _groundLocator;
     private Rigidbody2D _rigidbody2D;
-
     private bool _isOnGround;
-
-    // TODO: + добавить анмиацию прыжка
-    // TODO: + добавить разворот анимации когде бежит/прыгает в другую сторону
 
     private void Start()
     {
@@ -30,7 +26,6 @@ public class Movement : MonoBehaviour
         {
             // Debug.Log("input key D");
             _renderer.flipX = false;
-            // _animatorHandler.SetRun();
             transform.Translate(_speed * Time.deltaTime, 0, 0);
         }
 
@@ -38,7 +33,6 @@ public class Movement : MonoBehaviour
         {
             // Debug.Log("input key A");
             _renderer.flipX = true;
-            // _animatorHandler.SetRun();
             transform.Translate(_speed * Time.deltaTime * -1, 0, 0);
         }
 

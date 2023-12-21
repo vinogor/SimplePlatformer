@@ -15,7 +15,7 @@ public class Enemy : MonoBehaviour
     {
         if (other.gameObject.TryGetComponent(out Player player))
         {
-            player.RecountHealth(-10);
+            player.RecountHealth(-1);
 
             // отскок при ударе - в сторону движения врага
             Vector2 direction = _renderer.flipX ? transform.right : transform.right * -1;

@@ -11,13 +11,6 @@ public class Attack : MonoBehaviour
         _spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
-    // TODO: луч для отладки, в конце удалить
-    private void Update()
-    {
-        Vector2 direction = _spriteRenderer.flipX ? Vector2.left : Vector2.right;
-        Debug.DrawRay(transform.position, direction * _hitDistance, Color.red);
-    }
-
     public void Hit()
     {
         Vector2 direction = _spriteRenderer.flipX ? Vector2.left : Vector2.right;

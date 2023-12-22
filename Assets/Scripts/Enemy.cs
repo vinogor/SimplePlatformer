@@ -19,7 +19,6 @@ public class Enemy : MonoBehaviour
         if (other.gameObject.TryGetComponent(out Player player))
         {
             player.RecountHealth(-1);
-            // отскок Игрока при ударе - вверх
             player.GetComponent<Rigidbody2D>().AddForce(transform.up * pushForce, ForceMode2D.Impulse);
         }
     }

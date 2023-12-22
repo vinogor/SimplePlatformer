@@ -19,9 +19,6 @@ public class GroundLocator : MonoBehaviour
             Vector2.down,
             epsilonDistance,
             LayerMask.GetMask("Ground"));
-
-        // Debug.Log("circleCastAll.Length = " + circleCastAll.Length);
-
         return circleCastAll.Length == 1;
     }
 }

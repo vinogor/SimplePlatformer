@@ -27,28 +27,23 @@ public class Movement : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.D))
         {
-            // Debug.Log("input key D");
             _renderer.flipX = false;
             transform.Translate(_speed * Time.deltaTime, 0, 0);
         }
 
         if (Input.GetKey(KeyCode.A))
         {
-            // Debug.Log("input key A");
             _renderer.flipX = true;
             transform.Translate(_speed * Time.deltaTime * -1, 0, 0);
         }
 
         if (Input.GetKeyDown(KeyCode.W) && _groundLocator.IsStandOnGround())
         {
-            // Debug.Log("input key W + IsStandOnGround = true");
             _rigidbody2D.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
         }
 
         if (Input.GetKey(KeyCode.Space))
         {
-            Debug.Log("input key Space");
-
             _attack.Hit();
         }
     }
@@ -68,7 +63,6 @@ public class Movement : MonoBehaviour
         }
         else if (_isOnGround && Input.GetKey(KeyCode.Space))
         {
-            // TODO: ??? как сделать чтобы анимация атаки проходила мгновенно, не дожидаясь завершения предыдущей анимации?
             _animatorHandler.SetAttack();
         }
         else

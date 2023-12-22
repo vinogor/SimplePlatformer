@@ -26,10 +26,6 @@ public class WayPointMovement : MonoBehaviour
 
     private void Update()
     {
-        // TODO: луч для отладки, в конце удалить
-        Vector2 direction = _renderer.flipX ? Vector2.right : Vector2.left;
-        Debug.DrawRay(transform.position, direction * _pursuitDistance, Color.red);
-
         Vector3 target;
 
         if (TryLookForPlayer(out Vector3 playerPosition))
@@ -66,7 +62,6 @@ public class WayPointMovement : MonoBehaviour
 
         RaycastHit2D hit = hits[1];
 
-        //  hit.collider != null - без этого NPE когда враг убит и его колайдер отключился
         if (hit.collider != null && hit.collider.TryGetComponent(out Player player))
         {
             playerPosition = player.transform.position;

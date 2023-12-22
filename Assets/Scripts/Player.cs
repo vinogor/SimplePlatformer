@@ -1,10 +1,11 @@
 using UnityEngine;
 
-[RequireComponent(typeof(AnimatorHandler))]
+[RequireComponent(typeof(AnimatorHandler), typeof(CircleCollider2D))]
 public class Player : MonoBehaviour
 {
     private SceneReloader _sceneReloader;
     private AnimatorHandler _animatorHandler;
+    private CircleCollider2D _circleCollider;
     private int _currentHealth;
     private int _maxHealth = 3;
 
@@ -12,6 +13,7 @@ public class Player : MonoBehaviour
     {
         _sceneReloader = FindObjectOfType<SceneReloader>();
         _animatorHandler = GetComponent<AnimatorHandler>();
+        _circleCollider = GetComponent<CircleCollider2D>();
         _currentHealth = _maxHealth;
     }
 
@@ -30,9 +32,8 @@ public class Player : MonoBehaviour
 
     public void RecountHealth(int deltaHealth)
     {
-        // deltaHealth может быть отрицательная 
         _currentHealth += deltaHealth;
-        print("_currentHealth = " + _currentHealth);
+        Debug.Log("_currentHealth = " + _currentHealth);
 
         if (deltaHealth < 0)
         {
@@ -41,9 +42,7 @@ public class Player : MonoBehaviour
 
         if (_currentHealth <= 0)
         {
-            // при смерти - падает вниз
-            CircleCollider2D collider = GetComponent<CircleCollider2D>();
-            collider.enabled = false;
+            _circleCollider.enabled = false;
             Invoke(nameof(Death), 1.5f);
         }
     }

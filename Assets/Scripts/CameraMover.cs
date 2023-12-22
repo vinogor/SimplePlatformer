@@ -10,7 +10,6 @@ public class CameraMover : MonoBehaviour
     {
         Player player = FindObjectOfType<Player>();
         _targetTransform = player.transform;
-        // вначале смотрим точно на игрока
         transform.position =
             new Vector3(_targetTransform.position.x, _targetTransform.position.y, transform.position.z);
     }
@@ -19,7 +18,6 @@ public class CameraMover : MonoBehaviour
     {
         Vector3 targetPosition = _targetTransform.position;
         targetPosition.z = transform.position.z;
-        // плавное движение камеры
         transform.position = Vector3.Lerp(transform.position, targetPosition, _speed * Time.deltaTime);
     }
 }

@@ -3,13 +3,14 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody2D), typeof(AnimatorHandler), typeof(GroundLocator))]
 public class Movement : MonoBehaviour
 {
-    [SerializeField] private float _speed = 3;
-    [SerializeField] private int jumpForce = 8;
+    [SerializeField] private float _speed;
+    [SerializeField] private int jumpForce;
 
     private SpriteRenderer _renderer;
     private AnimatorHandler _animatorHandler;
     private GroundLocator _groundLocator;
     private Rigidbody2D _rigidbody2D;
+    private Attack _attack;
     private bool _isOnGround;
 
     private void Start()
@@ -18,6 +19,7 @@ public class Movement : MonoBehaviour
         _rigidbody2D = GetComponent<Rigidbody2D>();
         _animatorHandler = GetComponent<AnimatorHandler>();
         _groundLocator = GetComponent<GroundLocator>();
+        _attack = GetComponent<Attack>();
     }
 
     private void FixedUpdate()
@@ -36,29 +38,37 @@ public class Movement : MonoBehaviour
             transform.Translate(_speed * Time.deltaTime * -1, 0, 0);
         }
 
-        // if (Input.GetKeyDown(KeyCode.W))
-        // {
-        //     Debug.Log("input key W");
-        // }
-
         if (Input.GetKeyDown(KeyCode.W) && _groundLocator.IsStandOnGround())
         {
             // Debug.Log("input key W + IsStandOnGround = true");
             _rigidbody2D.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
+        }
+
+        if (Input.GetKey(KeyCode.Space))
+        {
+            Debug.Log("input key Space");
+           
+            _attack.Hit();
         }
     }
 
     private void Update()
     {
         _isOnGround = _groundLocator.IsStandOnGround();
-
+        
         if (_isOnGround == false)
         {
             _animatorHandler.SetJump();
         }
+        
         else if (_isOnGround && (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.A)))
         {
             _animatorHandler.SetRun();
+        }
+        else if (_isOnGround && Input.GetKey(KeyCode.Space))
+        {
+            // TODO: ??? как сделать чтобы анимация атаки проходила мгновенно, не дожидаясь завершения предыдущей анимации?
+            _animatorHandler.SetAttack();
         }
         else
         {

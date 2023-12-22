@@ -2,7 +2,8 @@ using UnityEngine;
 
 public class AnimatorHandler : MonoBehaviour
 {
-    private const string ParameterName = "PlayerState"; // private + const = CamelCase ?
+    // TODO: ??? private + const = CamelCase ?
+    private const string ParameterName = "PlayerState";
     
     private Animator _animator;
 
@@ -24,5 +25,10 @@ public class AnimatorHandler : MonoBehaviour
     public void SetJump()
     {
         _animator.SetInteger(ParameterName, 3);
+    }
+
+    public void SetAttack()
+    {
+        _animator.SetInteger(ParameterName, 4);
     }
 }

@@ -4,7 +4,7 @@ public class CameraMover : MonoBehaviour
 {
     private Transform _targetTransform;
 
-    private float _speed = 3;
+    private float _speed = 3.5f;
 
     void Start()
     {

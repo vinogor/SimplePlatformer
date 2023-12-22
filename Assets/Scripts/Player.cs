@@ -15,38 +15,22 @@ public class Player : MonoBehaviour
         _currentHealth = _maxHealth;
     }
 
-    // при столкновении коллайдера с врагом - получить урон 
-    // анимация атаки игрока - просто цветом? 
-    // анимация атаки врага - просто цветом?
-    // у врага тоже есть жизни 
-    // у врага 2 режима - патрулирувать / преследовать 
-    // несколько врагов на карте
-    // аптечки - случайно разбросаны на карте - лечат 
-
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        Debug.Log("Player OnCollisionEnter2D name = " + collision.collider.name);
-
-        if (collision.gameObject.TryGetComponent(out Enemy enemy))
-        {
-            Debug.Log("столкновение с врагом!");
-        }
-    }
-
-    // для сбора монеток
     private void OnTriggerEnter2D(Collider2D other)
     {
-        // Debug.Log("Player OnTriggerEnter name = " + other.name);
         if (other.TryGetComponent(out Coin coin))
         {
-            // Debug.Log("Player OnTriggerEnter  Coin coin ");
             Destroy(coin.gameObject);
+        }
+        else if (other.TryGetComponent(out FirstAidKit firstAidKit))
+        {
+            RecountHealth(1);
+            Destroy(firstAidKit.gameObject);
         }
     }
 
     public void RecountHealth(int deltaHealth)
     {
-        // tip: deltaHealth может быть отрицательная 
+        // deltaHealth может быть отрицательная 
         _currentHealth += deltaHealth;
         print("_currentHealth = " + _currentHealth);
 
@@ -81,7 +65,7 @@ public class Player : MonoBehaviour
 
             // TODO: пока хз как по красивее сделать возвращение исходного цвета
             //       можно управлять только одним каналом цвета и тогда это будет число а не Color, с ним проще,
-            //       но хотелось придумать более универсальное решение
+            //       но хотелось придумать более универсальное решение для возврата цвета на исх значение
             if (runningTime > durationTime && doReturnBaseColor == false)
             {
                 doReturnBaseColor = true;
@@ -91,6 +75,8 @@ public class Player : MonoBehaviour
 
             yield return null;
         }
+
+        _spriteRenderer.color = targetColor;
 
         yield return null;
     }

@@ -4,14 +4,17 @@ using UnityEngine;
 public class WayPointMovement : MonoBehaviour
 {
     [SerializeField] private Transform _path;
+    [SerializeField] private float _pursuitDistance = 3f;
 
     private SpriteRenderer _renderer;
     private Transform[] _points;
     private int _currentPoint;
     private float _speed = 2;
+    private bool _shouldPursue;
 
     private void Start()
     {
+        _shouldPursue = false;
         _renderer = GetComponent<SpriteRenderer>();
         _points = new Transform[_path.childCount];
 
@@ -23,18 +26,73 @@ public class WayPointMovement : MonoBehaviour
 
     private void Update()
     {
-        Transform target = _points[_currentPoint];
-        transform.position = Vector3.MoveTowards(transform.position, target.position, _speed * Time.deltaTime);
+        // TODO: луч для отладки, в конце удалить
+        Vector2 direction = _renderer.flipX ? Vector2.right : Vector2.left;
+        Debug.DrawRay(transform.position, direction * _pursuitDistance, Color.red);
 
-        if (transform.position == target.position)
+        Vector3 target;
+
+        if (TryLookForPlayer(out Vector3 playerPosition))
         {
-            _currentPoint++;
-            _renderer.flipX = !_renderer.flipX;
+            target = playerPosition;
+            _shouldPursue = true;
+        }
+        else
+        {
+            target = _points[_currentPoint].position;
 
-            if (_currentPoint >= _points.Length)
+            if (_shouldPursue)
             {
-                _currentPoint = 0;
+                _shouldPursue = false;
+                TakeNextPoint();
             }
+        }
+
+        transform.position = Vector3.MoveTowards(transform.position, target, _speed * Time.deltaTime);
+        TurnAround(target);
+    }
+
+    private bool TryLookForPlayer(out Vector3 playerPosition)
+    {
+        Vector2 direction = _renderer.flipX ? Vector2.right : Vector2.left;
+        RaycastHit2D[] hits = new RaycastHit2D[2];
+        var size = Physics2D.RaycastNonAlloc(transform.position, direction, hits, _pursuitDistance);
+
+        if (size == 1)
+        {
+            playerPosition = default;
+            return false;
+        }
+
+        RaycastHit2D hit = hits[1];
+
+        //  hit.collider != null - без этого NPE когда враг убит и его колайдер отключился
+        if (hit.collider != null && hit.collider.TryGetComponent(out Player player))
+        {
+            playerPosition = player.transform.position;
+            return true;
+        }
+
+        playerPosition = default;
+        return false;
+    }
+
+    private void TurnAround(Vector3 target)
+    {
+        if (transform.position == target)
+        {
+            TakeNextPoint();
+        }
+    }
+
+    private void TakeNextPoint()
+    {
+        _currentPoint++;
+        _renderer.flipX = !_renderer.flipX;
+
+        if (_currentPoint >= _points.Length)
+        {
+            _currentPoint = 0;
         }
     }
 }

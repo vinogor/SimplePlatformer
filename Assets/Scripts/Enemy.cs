@@ -4,22 +4,35 @@ public class Enemy : MonoBehaviour
 {
     [SerializeField] float pushForce;
 
-    private SpriteRenderer _renderer;
+    private Rigidbody2D _rigidbody;
+    private CircleCollider2D _collider;
 
     private void Start()
     {
-        _renderer = GetComponent<SpriteRenderer>();
+        _rigidbody = GetComponent<Rigidbody2D>();
+        _collider = GetComponent<CircleCollider2D>();
     }
+    
 
     private void OnCollisionEnter2D(Collision2D other)
     {
         if (other.gameObject.TryGetComponent(out Player player))
         {
             player.RecountHealth(-1);
-
-            // отскок при ударе - в сторону движения врага
-            Vector2 direction = _renderer.flipX ? transform.right : transform.right * -1;
-            player.GetComponent<Rigidbody2D>().AddForce(direction * pushForce, ForceMode2D.Impulse);
+            // отскок Игрока при ударе - вверх
+            player.GetComponent<Rigidbody2D>().AddForce(transform.up * pushForce, ForceMode2D.Impulse);
         }
+    }
+
+    public void Die()
+    {
+        _rigidbody.AddForce(transform.up * pushForce, ForceMode2D.Impulse);
+        _collider.enabled = false;
+        Invoke(nameof(Destroy), 1.5f);
+    }
+
+    private void Destroy()
+    {
+        Destroy(gameObject);
     }
 }

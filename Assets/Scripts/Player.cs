@@ -1,5 +1,6 @@
 using UnityEngine;
 
+[RequireComponent(typeof(AnimatorHandler))]
 public class Player : MonoBehaviour
 {
     private SceneReloader _sceneReloader;

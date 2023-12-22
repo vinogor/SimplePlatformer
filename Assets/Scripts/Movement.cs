@@ -1,6 +1,7 @@
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D), typeof(AnimatorHandler), typeof(GroundLocator))]
+[RequireComponent(typeof(SpriteRenderer), typeof(Attack))]
 public class Movement : MonoBehaviour
 {
     [SerializeField] private float _speed;
@@ -47,7 +48,7 @@ public class Movement : MonoBehaviour
         if (Input.GetKey(KeyCode.Space))
         {
             Debug.Log("input key Space");
-           
+
             _attack.Hit();
         }
     }
@@ -55,12 +56,12 @@ public class Movement : MonoBehaviour
     private void Update()
     {
         _isOnGround = _groundLocator.IsStandOnGround();
-        
+
         if (_isOnGround == false)
         {
             _animatorHandler.SetJump();
         }
-        
+
         else if (_isOnGround && (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.A)))
         {
             _animatorHandler.SetRun();

@@ -1,5 +1,6 @@
 using UnityEngine;
 
+[RequireComponent(typeof(Rigidbody2D), typeof(CircleCollider2D))]
 public class Enemy : MonoBehaviour
 {
     [SerializeField] float pushForce;
@@ -12,7 +13,6 @@ public class Enemy : MonoBehaviour
         _rigidbody = GetComponent<Rigidbody2D>();
         _collider = GetComponent<CircleCollider2D>();
     }
-    
 
     private void OnCollisionEnter2D(Collision2D other)
     {

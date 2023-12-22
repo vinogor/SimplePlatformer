@@ -1,17 +1,16 @@
-using System.Collections;
 using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    private SpriteRenderer _spriteRenderer;
     private SceneReloader _sceneReloader;
+    private AnimatorHandler _animatorHandler;
     private int _currentHealth;
     private int _maxHealth = 3;
 
     private void Start()
     {
-        _spriteRenderer = GetComponent<SpriteRenderer>();
         _sceneReloader = FindObjectOfType<SceneReloader>();
+        _animatorHandler = GetComponent<AnimatorHandler>();
         _currentHealth = _maxHealth;
     }
 
@@ -36,7 +35,7 @@ public class Player : MonoBehaviour
 
         if (deltaHealth < 0)
         {
-            StartCoroutine(OnHit());
+            _animatorHandler.SetDamaged();
         }
 
         if (_currentHealth <= 0)
@@ -46,39 +45,6 @@ public class Player : MonoBehaviour
             collider.enabled = false;
             Invoke(nameof(Death), 1.5f);
         }
-    }
-
-    private IEnumerator OnHit()
-    {
-        float totalDurationTime = 1;
-        float durationTime = totalDurationTime / 2;
-        float runningTime = 0;
-        bool doReturnBaseColor = false;
-
-        Color baseColor = Color.white;
-        Color targetColor = Color.red;
-
-        while (runningTime <= durationTime)
-        {
-            _spriteRenderer.color = Color.Lerp(baseColor, targetColor, runningTime / durationTime);
-            runningTime += Time.deltaTime;
-
-            // TODO: пока хз как по красивее сделать возвращение исходного цвета
-            //       можно управлять только одним каналом цвета и тогда это будет число а не Color, с ним проще,
-            //       но хотелось придумать более универсальное решение для возврата цвета на исх значение
-            if (runningTime > durationTime && doReturnBaseColor == false)
-            {
-                doReturnBaseColor = true;
-                (baseColor, targetColor) = (targetColor, baseColor);
-                runningTime = 0;
-            }
-
-            yield return null;
-        }
-
-        _spriteRenderer.color = targetColor;
-
-        yield return null;
     }
 
     private void Death()

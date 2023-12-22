@@ -2,9 +2,8 @@ using UnityEngine;
 
 public class AnimatorHandler : MonoBehaviour
 {
-    // TODO: ??? private + const = CamelCase ?
     private const string ParameterName = "PlayerState";
-    
+
     private Animator _animator;
 
     private void Start()
@@ -29,6 +28,11 @@ public class AnimatorHandler : MonoBehaviour
 
     public void SetAttack()
     {
-        _animator.SetInteger(ParameterName, 4);
+        _animator.Play("PlayerAttack");
+    }
+
+    public void SetDamaged()
+    {
+        _animator.Play("PlayerDamaged");
     }
 }

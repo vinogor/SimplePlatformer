@@ -6,6 +6,7 @@ public class Player : MonoBehaviour
     private SceneReloader _sceneReloader;
     private AnimatorHandler _animatorHandler;
     private CircleCollider2D _circleCollider;
+    
     private int _currentHealth;
     private int _maxHealth = 3;
 

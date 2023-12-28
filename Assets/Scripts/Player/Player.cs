@@ -3,19 +3,17 @@ using UnityEngine;
 [RequireComponent(typeof(AnimatorHandler), typeof(CircleCollider2D))]
 public class Player : MonoBehaviour
 {
+    private PlayerHealth _playerHealth;
     private SceneReloader _sceneReloader;
-    private AnimatorHandler _animatorHandler;
     private CircleCollider2D _circleCollider;
     
-    private int _currentHealth;
-    private int _maxHealth = 3;
+    // TODO: - почему не всегда происходит прыжок / атака (не ловит нажатие W / Space)
 
     private void Start()
     {
+        _playerHealth = GetComponent<PlayerHealth>();
         _sceneReloader = FindObjectOfType<SceneReloader>();
-        _animatorHandler = GetComponent<AnimatorHandler>();
         _circleCollider = GetComponent<CircleCollider2D>();
-        _currentHealth = _maxHealth;
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -26,26 +24,15 @@ public class Player : MonoBehaviour
         }
         else if (other.TryGetComponent(out FirstAidKit firstAidKit))
         {
-            RecountHealth(1);
+            _playerHealth.RecountHealthByFirstAidKit();
             Destroy(firstAidKit.gameObject);
         }
     }
 
-    public void RecountHealth(int deltaHealth)
+    public void Die()
     {
-        _currentHealth += deltaHealth;
-        Debug.Log("_currentHealth = " + _currentHealth);
-
-        if (deltaHealth < 0)
-        {
-            _animatorHandler.SetDamaged();
-        }
-
-        if (_currentHealth <= 0)
-        {
-            _circleCollider.enabled = false;
-            Invoke(nameof(Death), 1.5f);
-        }
+        _circleCollider.enabled = false;
+        Invoke(nameof(Death), 1.5f);
     }
 
     private void Death()

@@ -8,6 +8,8 @@ public class Enemy : MonoBehaviour
     private Rigidbody2D _rigidbody;
     private CircleCollider2D _collider;
 
+    private int _damageToPlayer = -10;
+
     private void Start()
     {
         _rigidbody = GetComponent<Rigidbody2D>();
@@ -18,7 +20,8 @@ public class Enemy : MonoBehaviour
     {
         if (other.gameObject.TryGetComponent(out Player player))
         {
-            player.RecountHealth(-1);
+            PlayerHealth playerHealth = player.GetComponent<PlayerHealth>();
+            playerHealth.RecountHealth(_damageToPlayer);
             player.GetComponent<Rigidbody2D>().AddForce(transform.up * pushForce, ForceMode2D.Impulse);
         }
     }

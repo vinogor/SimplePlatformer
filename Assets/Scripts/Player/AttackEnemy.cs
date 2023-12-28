@@ -1,10 +1,12 @@
 using UnityEngine;
 
-public class Attack : MonoBehaviour
+public class AttackEnemy : MonoBehaviour
 {
     [SerializeField] private float _hitDistance = 1.5f;
 
     private SpriteRenderer _spriteRenderer;
+
+    private int _damageForEnemy = -25;
 
     private void Start()
     {
@@ -25,10 +27,10 @@ public class Attack : MonoBehaviour
 
         RaycastHit2D hit = hits[1];
 
-        if (hit.collider.TryGetComponent(out Enemy enemy))
+        if (hit.collider.TryGetComponent(out EnemyHealth enemyHealth))
         {
             // Debug.Log("enemy hit!");
-            enemy.Die();
+            enemyHealth.TakeDamage(_damageForEnemy);
         }
     }
 }

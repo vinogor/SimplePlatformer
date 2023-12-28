@@ -7,6 +7,24 @@ public class AnimatorHandler : MonoBehaviour
 
     private Animator _animator;
 
+    private PlayerHealth _playerHealth;
+
+    private void OnEnable()
+    {
+        _playerHealth = GetComponent<PlayerHealth>();
+        _playerHealth.HealthDecreased += HandleHealthDecreased;
+    }
+
+    private void OnDisable()
+    {
+        _playerHealth.HealthDecreased -= HandleHealthDecreased;
+    }
+
+    private void HandleHealthDecreased(int _)
+    {
+        SetDamaged();
+    }
+
     private void Start()
     {
         _animator = GetComponent<Animator>();

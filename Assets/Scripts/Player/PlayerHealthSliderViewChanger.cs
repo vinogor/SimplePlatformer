@@ -2,18 +2,20 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class HealthSliderViewChanger : MonoBehaviour
+[RequireComponent(typeof(Slider))]
+public class PlayerHealthSliderViewChanger : MonoBehaviour
 {
     [SerializeField] private bool _isSmoothly;
 
-    private PlayerHealth _playerHealth;
     private Slider _slider;
+    private PlayerHealth _playerHealth;
 
     private void OnEnable()
     {
-        _playerHealth = FindObjectOfType<PlayerHealth>();
         _slider = GetComponent<Slider>();
-        _playerHealth.HealthChanged += HandleHealthChange;
+        _playerHealth = GetComponentInParent<Player>().GetComponent<PlayerHealth>();
+        _playerHealth.HealthIncreased += HandleChange;
+        _playerHealth.HealthDecreased += HandleChange;
     }
 
     private void Start()
@@ -25,13 +27,12 @@ public class HealthSliderViewChanger : MonoBehaviour
 
     private void OnDisable()
     {
-        _playerHealth.HealthChanged -= HandleHealthChange;
+        _playerHealth.HealthIncreased -= HandleChange;
+        _playerHealth.HealthDecreased -= HandleChange;
     }
 
-    private void HandleHealthChange(int maxValue, int currentValue)
+    private void HandleChange(int currentValue)
     {
-        _slider.maxValue = maxValue;
-
         if (_isSmoothly == false)
         {
             _slider.value = currentValue;

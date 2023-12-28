@@ -1,7 +1,7 @@
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D), typeof(AnimatorHandler), typeof(GroundLocator))]
-[RequireComponent(typeof(SpriteRenderer), typeof(Attack))]
+[RequireComponent(typeof(SpriteRenderer), typeof(AttackEnemy))]
 public class Movement : MonoBehaviour
 {
     [SerializeField] private float _speed;
@@ -11,7 +11,7 @@ public class Movement : MonoBehaviour
     private AnimatorHandler _animatorHandler;
     private GroundLocator _groundLocator;
     private Rigidbody2D _rigidbody2D;
-    private Attack _attack;
+    private AttackEnemy _attackEnemy;
     private bool _isOnGround;
 
     private void Start()
@@ -20,7 +20,7 @@ public class Movement : MonoBehaviour
         _rigidbody2D = GetComponent<Rigidbody2D>();
         _animatorHandler = GetComponent<AnimatorHandler>();
         _groundLocator = GetComponent<GroundLocator>();
-        _attack = GetComponent<Attack>();
+        _attackEnemy = GetComponent<AttackEnemy>();
     }
 
     private void FixedUpdate()
@@ -37,14 +37,20 @@ public class Movement : MonoBehaviour
             transform.Translate(_speed * Time.deltaTime * -1, 0, 0);
         }
 
+        if (Input.GetKeyDown(KeyCode.W))
+        {
+            Debug.Log("W");
+        }
+
         if (Input.GetKeyDown(KeyCode.W) && _groundLocator.IsStandOnGround())
         {
+            Debug.Log("W + ground");
             _rigidbody2D.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
         }
 
-        if (Input.GetKey(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space))
         {
-            _attack.Hit();
+            _attackEnemy.Hit();
         }
     }
 

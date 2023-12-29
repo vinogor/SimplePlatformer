@@ -18,7 +18,7 @@ public class EnemyHealthSliderViewChanger : MonoBehaviour
 
     private void Start()
     {
-        _enemyHealth.GetHealthInfo(out int maxValue, out int currentValue);
+        _enemyHealth.GetHealthInfo(out float maxValue, out float currentValue);
         _slider.maxValue = maxValue;
         _slider.value = currentValue;
     }
@@ -28,7 +28,7 @@ public class EnemyHealthSliderViewChanger : MonoBehaviour
         _enemyHealth.HealthDecreased -= HandleChange;
     }
 
-    private void HandleChange(int currentValue)
+    private void HandleChange(float currentValue)
     {
         if (_isSmoothly == false)
         {
@@ -40,7 +40,7 @@ public class EnemyHealthSliderViewChanger : MonoBehaviour
         }
     }
 
-    private IEnumerator ChangeValue(int targetValue)
+    private IEnumerator ChangeValue(float targetValue)
     {
         float durationTime = 0.5f;
         float runningTime = 0;

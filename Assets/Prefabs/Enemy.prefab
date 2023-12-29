@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 469857700518196201}
   - component: {fileID: 7855934922016530942}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: Fill Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -56,7 +56,7 @@ GameObject:
   - component: {fileID: 3411620083742242425}
   - component: {fileID: 5202811338081971063}
   - component: {fileID: 5539663153220274450}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: Enemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -159,7 +159,7 @@ GameObject:
   - component: {fileID: 3340110219473342184}
   - component: {fileID: 603331645103521605}
   - component: {fileID: 4118081546608013211}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: Fill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -234,7 +234,7 @@ GameObject:
   - component: {fileID: 1382654044387028138}
   - component: {fileID: 5392002700449219615}
   - component: {fileID: 5079864717294677266}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}

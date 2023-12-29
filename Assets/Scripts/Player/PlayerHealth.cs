@@ -3,14 +3,14 @@ using UnityEngine;
 
 public class PlayerHealth : MonoBehaviour
 {
-    public event Action<int> HealthIncreased;
-    public event Action<int> HealthDecreased;
+    public event Action<float> HealthIncreased;
+    public event Action<float> HealthDecreased;
 
     private Player _player;
 
-    private int _currentHealth;
-    private int _maxHealth = 100;
-    private int _firstAidKitHealthSize = 10;
+    private float _currentHealth;
+    private float _maxHealth = 100;
+    private float _firstAidKitHealthSize = 10;
 
     private void OnEnable()
     {
@@ -22,7 +22,7 @@ public class PlayerHealth : MonoBehaviour
         _player = GetComponent<Player>();
     }
 
-    public void GetHealthInfo(out int maxValue, out int currentValue)
+    public void GetHealthInfo(out float maxValue, out float currentValue)
     {
         maxValue = _maxHealth;
         currentValue = _currentHealth;
@@ -33,7 +33,7 @@ public class PlayerHealth : MonoBehaviour
         RecountHealth(_firstAidKitHealthSize);
     }
 
-    public void RecountHealth(int deltaHealth)
+    public void RecountHealth(float deltaHealth)
     {
         _currentHealth += deltaHealth;
 

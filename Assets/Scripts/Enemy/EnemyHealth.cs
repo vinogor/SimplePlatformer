@@ -3,13 +3,14 @@ using UnityEngine;
 
 public class EnemyHealth : MonoBehaviour
 {
-    public event Action<int> HealthDecreased;
+    public event Action<float> HealthDecreased;
+
     [SerializeField] float pushForce;
 
     private Enemy _enemy;
 
-    private int _currentHealth;
-    private int _maxHealth = 100;
+    private float _currentHealth;
+    private float _maxHealth = 100;
 
     private void OnEnable()
     {
@@ -21,15 +22,15 @@ public class EnemyHealth : MonoBehaviour
         _enemy = GetComponent<Enemy>();
     }
 
-    public void TakeDamage(int damage)
+    public void TakeDamage(float damage, bool shouldPush = true)
     {
         _currentHealth += damage;
-        
-        Debug.Log("ENEMY _currentHealth = " + _currentHealth);
-        
         HealthDecreased?.Invoke(_currentHealth);
-        
-        _enemy.GetComponent<Rigidbody2D>().AddForce(transform.up * pushForce, ForceMode2D.Impulse);
+
+        if (shouldPush)
+        {
+            _enemy.GetComponent<Rigidbody2D>().AddForce(transform.up * pushForce, ForceMode2D.Impulse);
+        }
 
         if (_currentHealth <= 0)
         {
@@ -37,7 +38,7 @@ public class EnemyHealth : MonoBehaviour
         }
     }
 
-    public void GetHealthInfo(out int maxValue, out int currentValue)
+    public void GetHealthInfo(out float maxValue, out float currentValue)
     {
         maxValue = _maxHealth;
         currentValue = _currentHealth;

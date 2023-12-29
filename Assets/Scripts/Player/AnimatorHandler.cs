@@ -3,7 +3,7 @@ using UnityEngine;
 [RequireComponent(typeof(Animator))]
 public class AnimatorHandler : MonoBehaviour
 {
-    private const string ParameterName = "PlayerState";
+    private static readonly int PlayerState = Animator.StringToHash("PlayerState");
 
     private Animator _animator;
 
@@ -20,7 +20,7 @@ public class AnimatorHandler : MonoBehaviour
         _playerHealth.HealthDecreased -= HandleHealthDecreased;
     }
 
-    private void HandleHealthDecreased(int _)
+    private void HandleHealthDecreased(float _)
     {
         SetDamaged();
     }
@@ -32,17 +32,17 @@ public class AnimatorHandler : MonoBehaviour
 
     public void SetIdle()
     {
-        _animator.SetInteger(ParameterName, 1);
+        _animator.SetInteger(PlayerState, 1);
     }
 
     public void SetRun()
     {
-        _animator.SetInteger(ParameterName, 2);
+        _animator.SetInteger(PlayerState, 2);
     }
 
     public void SetJump()
     {
-        _animator.SetInteger(ParameterName, 3);
+        _animator.SetInteger(PlayerState, 3);
     }
 
     public void SetAttack()

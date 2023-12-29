@@ -6,8 +6,6 @@ public class Player : MonoBehaviour
     private PlayerHealth _playerHealth;
     private SceneReloader _sceneReloader;
     private CircleCollider2D _circleCollider;
-    
-    // TODO: - почему не всегда происходит прыжок / атака (не ловит нажатие W / Space)
 
     private void Start()
     {

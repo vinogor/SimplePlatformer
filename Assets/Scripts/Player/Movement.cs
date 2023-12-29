@@ -12,6 +12,7 @@ public class Movement : MonoBehaviour
     private GroundLocator _groundLocator;
     private Rigidbody2D _rigidbody2D;
     private AttackEnemy _attackEnemy;
+    private Vampirism _vampirism;
     private bool _isOnGround;
 
     private void Start()
@@ -21,9 +22,16 @@ public class Movement : MonoBehaviour
         _animatorHandler = GetComponent<AnimatorHandler>();
         _groundLocator = GetComponent<GroundLocator>();
         _attackEnemy = GetComponent<AttackEnemy>();
+        _vampirism = GetComponent<Vampirism>();
     }
 
-    private void FixedUpdate()
+    private void Update()
+    {
+        HandleInput();
+        ManageAnimator();
+    }
+
+    private void HandleInput()
     {
         if (Input.GetKey(KeyCode.D))
         {
@@ -52,9 +60,14 @@ public class Movement : MonoBehaviour
         {
             _attackEnemy.Hit();
         }
+        
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            _vampirism.SearchEnemy();
+        }
     }
 
-    private void Update()
+    private void ManageAnimator()
     {
         _isOnGround = _groundLocator.IsStandOnGround();
 

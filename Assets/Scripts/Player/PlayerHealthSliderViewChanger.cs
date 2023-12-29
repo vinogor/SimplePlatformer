@@ -20,7 +20,7 @@ public class PlayerHealthSliderViewChanger : MonoBehaviour
 
     private void Start()
     {
-        _playerHealth.GetHealthInfo(out int maxValue, out int currentValue);
+        _playerHealth.GetHealthInfo(out float maxValue, out float currentValue);
         _slider.maxValue = maxValue;
         _slider.value = currentValue;
     }
@@ -31,7 +31,7 @@ public class PlayerHealthSliderViewChanger : MonoBehaviour
         _playerHealth.HealthDecreased -= HandleChange;
     }
 
-    private void HandleChange(int currentValue)
+    private void HandleChange(float currentValue)
     {
         if (_isSmoothly == false)
         {
@@ -43,7 +43,7 @@ public class PlayerHealthSliderViewChanger : MonoBehaviour
         }
     }
 
-    private IEnumerator ChangeValue(int targetValue)
+    private IEnumerator ChangeValue(float targetValue)
     {
         float durationTime = 0.5f;
         float runningTime = 0;

@@ -76,7 +76,7 @@ GameObject:
   - component: {fileID: 6692685480180727854}
   - component: {fileID: 6337867562559746452}
   - component: {fileID: 3342675613052384016}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -177,7 +177,7 @@ GameObject:
   - component: {fileID: 7630723158277249230}
   - component: {fileID: 5862212022306228684}
   - component: {fileID: 2631813505308203014}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -290,7 +290,7 @@ GameObject:
   - component: {fileID: 4598371172437071661}
   - component: {fileID: 401176195514127588}
   - component: {fileID: 7713828229369318612}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Enemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -404,7 +404,7 @@ CircleCollider2D:
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -530,7 +530,7 @@ GameObject:
   - component: {fileID: 9136804235744247617}
   - component: {fileID: 2091785010249621461}
   - component: {fileID: 5738477321659281402}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: Fill
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -604,7 +604,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2921553358908945650}
   - component: {fileID: 8215092522102842822}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: Fill Area
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -650,7 +650,7 @@ GameObject:
   - component: {fileID: 8748636587247667985}
   - component: {fileID: 309034862710985201}
   - component: {fileID: 5617762333199662399}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: Slider
   m_TagString: Untagged
   m_Icon: {fileID: 0}

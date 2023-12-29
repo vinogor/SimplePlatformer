@@ -134,6 +134,7 @@ GameObject:
   - component: {fileID: 29778967}
   - component: {fileID: 29778969}
   - component: {fileID: 29778968}
+  - component: {fileID: 29778970}
   m_Layer: 5
   m_Name: TextCounter
   m_TagString: Untagged
@@ -257,6 +258,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 29778966}
   m_CullTransparentMesh: 1
+--- !u!114 &29778970
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 29778966}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf8e01075e336c44288592b8f27ec00b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -786,6 +799,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 412ea77962b7ec24d861ae86e27371ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _layerMaskForEnemySearch:
+    serializedVersion: 2
+    m_Bits: 64
 --- !u!1 &998338588
 GameObject:
   m_ObjectHideFlags: 0

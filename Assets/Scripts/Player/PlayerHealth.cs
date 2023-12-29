@@ -42,7 +42,7 @@ public class PlayerHealth : MonoBehaviour
             _currentHealth = _maxHealth;
         }
 
-        Debug.Log("_currentHealth = " + _currentHealth);
+        // Debug.Log("_currentHealth = " + _currentHealth);
 
         if (deltaHealth < 0)
         {

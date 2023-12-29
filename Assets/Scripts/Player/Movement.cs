@@ -47,12 +47,12 @@ public class Movement : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.W))
         {
-            Debug.Log("W");
+            // Debug.Log("W");
         }
 
         if (Input.GetKeyDown(KeyCode.W) && _groundLocator.IsStandOnGround())
         {
-            Debug.Log("W + ground");
+            // Debug.Log("W + ground");
             _rigidbody2D.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
         }
 

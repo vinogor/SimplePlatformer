@@ -6,6 +6,8 @@ using UnityEngine;
 [RequireComponent(typeof(Player))]
 public class Vampirism : MonoBehaviour
 {
+    [SerializeField] private LayerMask _layerMaskForEnemySearch;
+
     private SpriteRenderer _enemySearchCircleRenderer;
     private Player _player;
     private TMP_Text _text;
@@ -35,9 +37,6 @@ public class Vampirism : MonoBehaviour
 
         while (timeLeft > float.Epsilon)
         {
-            // TODO: ? с указанием конкретного слоя - вообще ничего не находит
-            // Physics2D.OverlapCircle(transform.position, _searchRadius, LayerMask.NameToLayer(includeLayerName));
-
             if (TryFindEnemy(out Enemy enemy))
             {
                 EnemyHealth enemyHealth = enemy.GetComponent<EnemyHealth>();
@@ -46,7 +45,7 @@ public class Vampirism : MonoBehaviour
                 enemyHealth.TakeDamage(-_damage, false);
                 playerHealth.RecountHealth(_damage);
 
-                Debug.Log("_timeLeft = " + timeLeft);
+                // Debug.Log("_timeLeft = " + timeLeft);
                 UpdateTimeText(timeLeft);
             }
             else
@@ -67,15 +66,12 @@ public class Vampirism : MonoBehaviour
 
     private bool TryFindEnemy(out Enemy enemy)
     {
-        Collider2D[] overlapCircleAll = Physics2D.OverlapCircleAll(transform.position, _searchRadius);
+        Collider2D collider = Physics2D.OverlapCircle(transform.position, _searchRadius, _layerMaskForEnemySearch);
 
-        foreach (Collider2D collider2D in overlapCircleAll)
+        if (collider != null && collider.TryGetComponent(out Enemy enemyForReturn))
         {
-            if (collider2D.TryGetComponent(out Enemy enemyForReturn))
-            {
-                enemy = enemyForReturn;
-                return true;
-            }
+            enemy = enemyForReturn;
+            return true;
         }
 
         enemy = null;
